@@ -12,8 +12,7 @@
 
 
 @interface WDAddressBook : NSObject
-+ (instancetype)new;
-- (instancetype)init;
+
 
 + (instancetype)defaultManager;
 

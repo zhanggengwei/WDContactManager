@@ -33,11 +33,11 @@
 {
     if(self = [super init])
     {
-       
-                NSArray * fetchArray = @[CNContactNamePrefixKey,CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,CNContactPreviousFamilyNameKey,CNContactNameSuffixKey,CNContactNicknameKey,CNContactOrganizationNameKey,CNContactDepartmentNameKey,CNContactJobTitleKey,CNContactPhoneticGivenNameKey,CNContactPhoneticMiddleNameKey           ,CNContactPhoneticFamilyNameKey,CNContactPhoneticOrganizationNameKey,CNContactBirthdayKey,CNContactNonGregorianBirthdayKey            ,CNContactNoteKey,CNContactImageDataKey,CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactEmailAddressesKey,CNContactPostalAddressesKey,CNContactDatesKey,CNContactUrlAddressesKey,CNContactRelationsKey ,CNContactSocialProfilesKey,CNContactInstantMessageAddressesKey ];
-                _contactStore = [CNContactStore new];
-                _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
-                _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
+        
+        NSArray * fetchArray = @[CNContactNamePrefixKey,CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,CNContactPreviousFamilyNameKey,CNContactNameSuffixKey,CNContactNicknameKey,CNContactOrganizationNameKey,CNContactDepartmentNameKey,CNContactJobTitleKey,CNContactPhoneticGivenNameKey,CNContactPhoneticMiddleNameKey           ,CNContactPhoneticFamilyNameKey,CNContactPhoneticOrganizationNameKey,CNContactBirthdayKey,CNContactNonGregorianBirthdayKey            ,CNContactNoteKey,CNContactImageDataKey,CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactEmailAddressesKey,CNContactPostalAddressesKey,CNContactDatesKey,CNContactUrlAddressesKey,CNContactRelationsKey ,CNContactSocialProfilesKey,CNContactInstantMessageAddressesKey ];
+        _contactStore = [CNContactStore new];
+        _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
+        _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
         
     }
     return self;
@@ -98,3 +98,4 @@
     return _status;
 }
 @end
+

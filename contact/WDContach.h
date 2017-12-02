@@ -16,6 +16,15 @@ typedef enum : NSUInteger {
     WDAuthorizeStatusAuthorized
 } WDAuthorizeStatus;
 
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
+
+
 
 typedef void(^requestAuthorizeBlock)(NSError * error,BOOL granted);
 typedef void(^getContactsBlock)(NSArray * contacts);
