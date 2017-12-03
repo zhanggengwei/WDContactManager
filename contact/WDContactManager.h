@@ -7,15 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-//#define __IOS9_LATER__ (YES)
-//#else
-//#define __IOS9_LATER__ (YES)
-//#endif
-
-
-
-
 
 #import "WDContach.h"
 #import "WDContactProtrocal.h"

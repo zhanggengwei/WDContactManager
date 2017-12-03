@@ -8,10 +8,9 @@
 //
 
 #import "KDContactAddressBook.h"
-#import <Contacts/Contacts.h>
-#import <Contacts/CNContact.h>
+#import <Availability.h>
 #import "WDContactModel.h"
-
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @implementation KDContactAddressBook
 {
     CNContactStore * _contactStore;
@@ -29,15 +28,25 @@
     return manager;
 }
 
+
+
 - (instancetype)init
 {
     if(self = [super init])
     {
         
-        NSArray * fetchArray = @[CNContactNamePrefixKey,CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,CNContactPreviousFamilyNameKey,CNContactNameSuffixKey,CNContactNicknameKey,CNContactOrganizationNameKey,CNContactDepartmentNameKey,CNContactJobTitleKey,CNContactPhoneticGivenNameKey,CNContactPhoneticMiddleNameKey           ,CNContactPhoneticFamilyNameKey,CNContactPhoneticOrganizationNameKey,CNContactBirthdayKey,CNContactNonGregorianBirthdayKey            ,CNContactNoteKey,CNContactImageDataKey,CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactEmailAddressesKey,CNContactPostalAddressesKey,CNContactDatesKey,CNContactUrlAddressesKey,CNContactRelationsKey ,CNContactSocialProfilesKey,CNContactInstantMessageAddressesKey ];
-        _contactStore = [CNContactStore new];
-        _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
-        _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
+        if (@available(iOS 9.0, *)) {
+            if (@available(iOS 10.0, *)) {
+                NSArray * fetchArray = @[CNContactNamePrefixKey,CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,CNContactPreviousFamilyNameKey,CNContactNameSuffixKey,CNContactNicknameKey,CNContactOrganizationNameKey,CNContactDepartmentNameKey,CNContactJobTitleKey,CNContactPhoneticGivenNameKey,CNContactPhoneticMiddleNameKey           ,CNContactPhoneticFamilyNameKey,CNContactPhoneticOrganizationNameKey,CNContactBirthdayKey,CNContactNonGregorianBirthdayKey            ,CNContactNoteKey,CNContactImageDataKey,CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactEmailAddressesKey,CNContactPostalAddressesKey,CNContactDatesKey,CNContactUrlAddressesKey,CNContactRelationsKey ,CNContactSocialProfilesKey,CNContactInstantMessageAddressesKey ];
+                _contactStore = [CNContactStore new];
+                _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
+                _fetchRequest = [[CNContactFetchRequest alloc]initWithKeysToFetch:fetchArray];
+            } else {
+                // Fallback on earlier versions
+            }
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
     return self;
@@ -47,14 +56,18 @@
 {
     NSMutableArray * array = [NSMutableArray new];
     NSError * error = nil;
-    [_contactStore enumerateContactsWithFetchRequest:_fetchRequest error:&error usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
-        id<WDContactProtrocal> model = [[self.cls.class alloc]initWithObj:(__bridge void *)(contact)];
-        [array addObject:model];
-        if(block)
-        {
-            block(array);
-        }
-    }];
+    if (@available(iOS 9.0, *)) {
+        [_contactStore enumerateContactsWithFetchRequest:_fetchRequest error:&error usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
+            id<WDContactProtrocal> model = [[self.cls.class alloc]initWithObj:(__bridge void *)(contact)];
+            [array addObject:model];
+            if(block)
+            {
+                block(array);
+            }
+        }];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (void)loadSortAllContacts:(getContactsBlock)block
@@ -69,33 +82,45 @@
 }
 - (void)requestAuthorizeWithFunction:(requestAuthorizeBlock)block
 {
-    [_contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if(block)
-        {
-            block(error,granted);
-        }
-    }];
+    if (@available(iOS 9.0, *)) {
+        [_contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if(block)
+            {
+                block(error,granted);
+            }
+        }];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 - (WDAuthorizeStatus)status
 {
-    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    switch (status) {
-        case CNAuthorizationStatusNotDetermined:
-            _status = WDAuthorizeStatusNotDetermined;
-            break;
-        case CNAuthorizationStatusRestricted:
-            _status = WDAuthorizeStatusRestricted;
-            break;
-        case CNAuthorizationStatusDenied:
-            _status = WDAuthorizeStatusDenied;
-            break;
-        case CNAuthorizationStatusAuthorized:
-            _status = WDAuthorizeStatusAuthorized;
-            break;
-        default:
-            break;
+    if (@available(iOS 9.0, *)) {
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        switch (status) {
+            case CNAuthorizationStatusNotDetermined:
+                _status = WDAuthorizeStatusNotDetermined;
+                break;
+            case CNAuthorizationStatusRestricted:
+                _status = WDAuthorizeStatusRestricted;
+                break;
+            case CNAuthorizationStatusDenied:
+                _status = WDAuthorizeStatusDenied;
+                break;
+            case CNAuthorizationStatusAuthorized:
+                _status = WDAuthorizeStatusAuthorized;
+                break;
+            default:
+                break;
+        }
+        
+    } else {
+        // Fallback on earlier versions
     }
     return _status;
 }
 @end
+#else
+@implementation KDContactAddressBook
+#endif
 

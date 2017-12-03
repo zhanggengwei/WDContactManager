@@ -9,7 +9,7 @@
 //
 
 #import "WDContactModel.h"
-#import <Contacts/Contacts.h>
+
 
 @interface WDContactModel()
 @property (strong,nonatomic) NSString * namePrefix;
@@ -53,9 +53,13 @@
     if(self = [super init])
     {
         _obj = obj;
-        #if __IOS9_LATER__
-        CNContact * contact = (__bridge CNContact *)(obj);
-        [self _loadData:contact];
+       #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+        if (@available(iOS 9.0, *)) {
+            CNContact * contact = (__bridge CNContact *)(obj);
+             [self _loadData:contact];
+        } else {
+            // Fallback on earlier versions
+        }
         #else
         ABRecordRef recoard = obj;
         [self _loadData:recoard];
@@ -63,9 +67,11 @@
     }
     return self;
 }
-#if __IOS9_LATER__
-- (void)_loadData:(CNContact *)contact
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)_loadData:(id)obj
 {
+    if (@available(iOS 9.0, *)) {
+        CNContact * contact = obj;
     _givenName = contact.givenName;
     _namePrefix = contact.namePrefix;
     _middleName = contact.middleName;
@@ -83,13 +89,20 @@
     _note = contact.note;
     _imageData = contact.imageData;
     _thumbnailImageData = contact.thumbnailImageData;
-    _imageDataAvailable = contact.imageDataAvailable;
+    if (@available(iOS 9.0, *)) {
+        _imageDataAvailable = contact.imageDataAvailable;
+    } else {
+        // Fallback on earlier versions
+    }
     _phoneNumbers = contact.phoneNumbers;
     _emailAddresses = contact.emailAddresses;
     _postalAddresses = contact.postalAddresses;
     _urlAddresses = contact.emailAddresses;
     _birthday = contact.birthday;
     _nonGregorianBirthday = contact.nonGregorianBirthday;
+    } else {
+        // Fallback on earlier versions
+    }
     
 }
 #else
@@ -119,6 +132,7 @@
     _urlAddresses = [self _loadArrayWithProperty:kABPersonURLProperty];
     _birthday = [self _loadDateProperty:kABPersonBirthdayProperty];
     _nonGregorianBirthday = [self _loadDateProperty:kABPersonAlternateBirthdayProperty];
+
 }
 - (NSArray *)_loadArrayWithProperty:(ABPropertyID)property
 {

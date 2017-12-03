@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "WDContactProtrocal.h"
-#import <AddressBook/AddressBook.h>
 #import <objc/NSObjCRuntime.h>
 
 @interface WDContactModel : NSObject<WDContactProtrocal>

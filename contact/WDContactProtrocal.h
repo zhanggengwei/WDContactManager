@@ -8,11 +8,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AddressBook/AddressBook.h>
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-#define __IOS9_LATER__ (1)
+#import <Contacts/Contacts.h>
 #else
-#define __IOS9_LATER__ (0)
+#import <AddressBook/AddressBook.h>
 #endif
 
 @protocol WDContactProtrocal;

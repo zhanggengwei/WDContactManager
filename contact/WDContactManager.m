@@ -11,11 +11,7 @@
 #import "WDContactModel.h"
 #import "KDContactAddressBook.h"
 #import "WDAddressBook.h"
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-//#define __IOS9_LATER__ (1)
-//#else
-//#define __IOS9_LATER__ (0)
-//#endif
+
 
 @interface WDContactManager()
 @property (nonatomic,weak) NSObject<WDAddRessBookProtrocal> * addRessBook;
