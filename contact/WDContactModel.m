@@ -53,7 +53,7 @@
     if(self = [super init])
     {
         _obj = obj;
-       #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+        #ifdef __IPHONE_9_0
         if (@available(iOS 9.0, *)) {
             CNContact * contact = (__bridge CNContact *)(obj);
              [self _loadData:contact];
@@ -67,11 +67,9 @@
     }
     return self;
 }
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-- (void)_loadData:(id)obj
+#ifdef __IPHONE_9_0
+- (void)_loadData:(CNContact *)contact
 {
-    if (@available(iOS 9.0, *)) {
-        CNContact * contact = obj;
     _givenName = contact.givenName;
     _namePrefix = contact.namePrefix;
     _middleName = contact.middleName;
@@ -100,10 +98,6 @@
     _urlAddresses = contact.emailAddresses;
     _birthday = contact.birthday;
     _nonGregorianBirthday = contact.nonGregorianBirthday;
-    } else {
-        // Fallback on earlier versions
-    }
-    
 }
 #else
 - (void)_loadData:(ABRecordRef)recoard

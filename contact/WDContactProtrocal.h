@@ -8,8 +8,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+#ifdef __IPHONE_9_0
 #import <Contacts/Contacts.h>
 #else
 #import <AddressBook/AddressBook.h>

@@ -70,6 +70,8 @@
 		75A67B7A1FD2B45300B51FA2 /* WDContactProtrocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDContactProtrocal.h; sourceTree = "<group>"; };
 		75A67B7B1FD2B45300B51FA2 /* WDContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDContactModel.h; sourceTree = "<group>"; };
 		75A67B7C1FD2B45300B51FA2 /* NSObject+WDClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WDClassProperty.h"; sourceTree = "<group>"; };
+		75F81AE41FD427F20067E07A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		75F81AE51FD427FE0067E07A /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				75A67B541FD2B43900B51FA2 /* WDContactManagerTests */,
 				75A67B5F1FD2B43900B51FA2 /* WDContactManagerUITests */,
 				75A67B3A1FD2B43800B51FA2 /* Products */,
+				75F81AE31FD427F10067E07A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +174,15 @@
 				75A67B7C1FD2B45300B51FA2 /* NSObject+WDClassProperty.h */,
 			);
 			path = contact;
+			sourceTree = "<group>";
+		};
+		75F81AE31FD427F10067E07A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75F81AE51FD427FE0067E07A /* Contacts.framework */,
+				75F81AE41FD427F20067E07A /* AddressBook.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
