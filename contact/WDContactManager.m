@@ -53,7 +53,7 @@
 #if __IOS9_LATER__
         self.addRessBook = [KDContactAddressBook defaultManager];
 #else
-       self.addRessBook = [WDAddressBook defaultManager];
+        self.addRessBook = nil; //[WDAddressBook defaultManager];
 #endif
         [self setCls:[WDContactModel class]];
     }

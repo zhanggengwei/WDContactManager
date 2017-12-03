@@ -8,16 +8,16 @@
 //
 
 #import "KDContactAddressBook.h"
-#import <Availability.h>
 #import "WDContactModel.h"
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+
+@interface KDContactAddressBook()
+#ifdef __IPHONE_9_0
+@property (nonatomic,strong) CNContactStore * contactStore;
+@property (nonatomic,strong) CNContactFetchRequest * fetchRequest;
+@end
 @implementation KDContactAddressBook
-{
-    CNContactStore * _contactStore;
-    CNContactFetchRequest * _fetchRequest;
-    WDAuthorizeStatus _status;
-}
 @synthesize cls = _cls;
+@synthesize status = _status;
 + (instancetype)defaultManager
 {
     static KDContactAddressBook * manager;
@@ -27,9 +27,6 @@
     });
     return manager;
 }
-
-
-
 - (instancetype)init
 {
     if(self = [super init])
@@ -122,5 +119,6 @@
 @end
 #else
 @implementation KDContactAddressBook
+@end
 #endif
 
